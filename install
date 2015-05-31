@@ -1,3 +1,42 @@
 #!/bin/bash
 
+echo '[:] checking dependencies'
+
+if hash redis-cli 2>/dev/null; then
+  echo 'Redis-server not installed'   
+  exit 1
+elif hash node 2>/dev/null; then
+  echo 'Node not installed'
+  exit 1
+elif hash npm 2>/dev/null; then
+  echo 'npm not installed'
+elif hash groovy 2>/dev/null; then
+  echo 'groovy not installed'
+fi
+
 echo '[:] installing aberowl'
+
+echo '[:] Downloading submodules'
+git submodule init
+git submodule update
+
+cd aberowl-server
+git submodule init
+git submodule update
+
+cd ../aberowl-sync
+git submodule init
+git submodule update
+
+cd ../
+
+echo '[:] Installing web dependencies'
+
+cd aberowl-web
+npm install
+
+cd ../
+
+echo '[:] Done'
+
+echo 'That is about it for the automagic side for now. Check the readme for other stuff.'
