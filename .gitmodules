@@ -1,0 +1,9 @@
+[submodule "aberowl-server"]
+	path = aberowl-server
+	url = https://github.com/bio-ontology-research-group/AberOWL.git
+[submodule "aberowl-web"]
+	path = aberowl-web
+	url = https://github.com/bio-ontology-research-group/aberowl-orepo.git
+[submodule "aberowl-sync"]
+	path = aberowl-sync
+	url = https://github.com/bio-ontology-research-group/aberowl-sync.git
