@@ -11,7 +11,20 @@
 
 ./install
 
-You will then need to 
+You will then need to reverse proxy the web parts by editing the apache config file. The relevant one is
+usually /etc/apache2/sites-enabled/000-default.conf
+
+You need to add:
+
+```apache
+  ProxyPass /service/ http://my.domain.name.uk:8080/
+  ProxyPassReverse /service/ http://my.domain.name.uk:8080/
+  
+  ProxyPass / http://my.domain.name.uk:3000/
+  ProxyPassReverse / http://my.domain.name.uk:3000/
+```
+
+Note that the order is important. Apache must be restarted after changes.
 
 ## Running
 
