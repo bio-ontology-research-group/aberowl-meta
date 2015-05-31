@@ -37,12 +37,12 @@ RemoteOntologyDiscover.groovy and RemoteOntologyUpdate.groovy
 
 ### AberOWL-server
 
-* The port listened on can be changed at the top of AberOWLServer.groovy. Note that changed will have to be 
+* The port listened on can be changed at the top of AberOWLServer.groovy. Note that changes will have to be 
 accounted for in the Apache configuration.
 
 ### AberOWL-web
 
-* The port listened on can be changed at the top of bin/www. Note that changed will have to be accounted for in the
+* The port listened on can be changed at the top of bin/www. Note that changes will have to be accounted for in the
 Apache configuration.
 
 ## Running
