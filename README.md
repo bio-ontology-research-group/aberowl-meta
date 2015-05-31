@@ -11,8 +11,8 @@
 
 ./install
 
-You will then need to reverse proxy the web parts by editing the apache config file. The relevant one is
-usually /etc/apache2/sites-enabled/000-default.conf
+You will then need to reverse proxy the servers through apache. You can do this by editing the apache config 
+file. The relevant one is usually /etc/apache2/sites-enabled/000-default.conf
 
 You need to add:
 
@@ -25,6 +25,25 @@ You need to add:
 ```
 
 Note that the order is important. Apache must be restarted after changes.
+
+## Configuration
+
+Everything should work by default, however listed are a few configuration points throughout the applications:
+
+### AberOWL-sync
+
+* Configure the location of the AberOWL-server API endpoint using the *ABEROWL_API* constant at the top of each
+RemoteOntologyDiscover.groovy and RemoteOntologyUpdate.groovy
+
+### AberOWL-server
+
+* The port listened on can be changed at the top of AberOWLServer.groovy. Note that changed will have to be 
+accounted for in the Apache configuration.
+
+### AberOWL-web
+
+* The port listened on can be changed at the top of bin/www. Note that changed will have to be accounted for in the
+Apache configuration.
 
 ## Running
 
