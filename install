@@ -37,6 +37,10 @@ npm install
 
 cd ../
 
+echo '[:] Linking ontologies folders'
+ln -s aberowl-server/onts/ aberowl-web/public/onts/
+ln -s aberowl-server/onts/ aberowl-sync/public/onts/
+
 echo '[:] Done'
 
 echo 'That is about it for the automagic side for now. Check the readme for other stuff.'
