@@ -24,12 +24,12 @@ You need to add:
   ProxyPassReverse / http://my.domain.name.uk:3000/
 ```
 
-Then, you need to add the module proxy will to apache:
-```apache
+Then, you need to add the module proxy to apache:
+```bash
   sudo a2enmod proxy
 ```
 Finally, you have to install database-redis:
-```apache
+```bash
   1) npm install databank -g redis.
   2) cd node_modules/databank/
      npm install databank-redis
