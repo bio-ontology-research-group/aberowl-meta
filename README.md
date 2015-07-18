@@ -28,11 +28,12 @@ Then, you need to add the module proxy to apache:
 ```bash
   sudo a2enmod proxy
 ```
-Finally, you have to install database-redis:
+Finally, you have to install databank-redis:
 ```bash
-  1) npm install databank -g redis.
-  2) cd node_modules/databank/
-     npm install databank-redis
+  1) cd aberowl-web
+  2) npm install databank
+  3) cd node_modules/databank/
+  4) npm install databank-redis
 ```
 Note that the order is important. Apache must be restarted after changes.
 
