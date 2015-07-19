@@ -130,7 +130,7 @@ Apache configuration.
 
 ## Running
 
-To run the server:
+Once you are in the ```aberowl-meta``` directory, To run the server simply run:
 
 ```bash
 cd aberowl-server ;  groovy AberOWLServer.groovy
@@ -145,7 +145,7 @@ cd aberowl-web ; bin/www
 To run the sync, follow these commands:
 
 ```bash
-cd aberowl-sync ; groovy RemoteOntologyDiscover.groovy ; groovy RemoteOntologyUpdate.groovy
+cd aberowl-sync ; groovy RemoteOntologyDiscover.groovy & groovy RemoteOntologyUpdate.groovy
 ```
 
 ## Contributions
