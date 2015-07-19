@@ -7,12 +7,10 @@ This repository contains a collection of install scripts and subdirectories for 
 
 AberOWL is a framework for ontology-based access to biological data.
 
----
 ## Documentation
 
 Documentation is available at [aber-owl.net](http://aber-owl.net/help).
 
----
 ## Dependencies
 
 ### Redis
@@ -62,9 +60,10 @@ Apache is a popular open-source web server.
 
 To install apache, use this command.
 
-    sudo apt-get install apache2
+```bash
+sudo apt-get install apache2
+```
 
----
 ## Installation
 
 AberOWL is being actively developed, and you can clone its repository.
@@ -94,7 +93,7 @@ You need to add:
 
 Then, you need to add the module proxy to apache:
 ```bash
-  sudo a2enmod proxy
+sudo a2enmod proxy
 ```
 Finally, you have to install databank-redis:
 ```bash
@@ -153,7 +152,7 @@ cd aberowl-sync ; groovy RemoteOntologyDiscover.groovy ; groovy RemoteOntologyUp
 
 You can open an issue on our [issues page](https://github.com/bio-ontology-research-group/aberowl-meta/issues), or ask directly on our [mailing list](http://groups.google.co.uk/d/forum/aber-owl).
 
----
+
 ## License
 
 Code released under the Apache 2.0 license. For more information, please see [the LICENSE file](./LICENSE).
