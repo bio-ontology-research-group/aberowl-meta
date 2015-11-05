@@ -17,7 +17,7 @@ Documentation is available at [aber-owl.net](http://aber-owl.net/help).
 
 Redis is an in-memory database that persists on disk, and allows for fast ontoloy indexing.
 
-Follow these simple steps below to compile Redis from source.
+You can either install this using your package manager, or follow these simple steps below to compile Redis from source.
 
 ```bash
 wget http://download.redis.io/redis-stable.tar.gz
