@@ -46,13 +46,7 @@ sudo apt-get install node nodejs npm
 
 ### Groovy
 
-Groovy is an alternative language for the JVM with a concise Java-friendly syntax, dynamic and static features, powerful DSL capabilities
-
-Ubuntu 14.04 comes bundled with Groovy 1.8.6, and can be installed directory from the default repositiories using the following command.
-
-```bash
-sudo apt-get install groovy
-```
+Groovy is an alternative language for the JVM with a concise Java-friendly syntax, dynamic and static features, powerful DSL capabilities. AberOWL requires a Groovy version above version 2. If your package manager includes an ancient version of Groovy, you can easily use the GVM tool to install a recent version: http://www.groovy-lang.org/install.html#_gvm_the_groovy_environment_manager
 
 ### Apache
 
