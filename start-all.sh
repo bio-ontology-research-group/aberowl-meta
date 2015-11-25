@@ -3,7 +3,7 @@ redis-server &
 cd aberowl-server
 export CLASSPATH=.
 for i in lib/*; do export CLASSPATH=$CLASSPATH:$i; done
-groovy AberOWLServer.groovy &
+groovy AberOWLServer.groovy 55555 &
 cd ..
 cd pubmedsearch
 groovy JettyServer.groovy &
