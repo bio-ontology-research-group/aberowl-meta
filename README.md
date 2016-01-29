@@ -139,7 +139,7 @@ cd aberowl-web ; bin/www
 To run the sync, follow these commands:
 
 ```bash
-cd aberowl-sync ; groovy RemoteOntologyDiscover.groovy & groovy RemoteOntologyUpdate.groovy
+cd aberowl-sync ; groovy RemoteOntologyDiscover.groovy && groovy RemoteOntologyUpdate.groovy
 ```
 
 ## Contributions
