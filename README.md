@@ -34,19 +34,19 @@ redis-server restart
 
 ### node, node.js and npm
 
-Node.js is a JavaScript platform for server-side programming, and NPM is a JavaScript package manager.
+Node.js is a JavaScript platform for server-side programming, and npm is a JavaScript package manager.
 
-Ubuntu 14.04 comes bundled with a distro-sable version of node, node,js and nPM that can be installed directly from the default repositories.
+Ubuntu 14.04 comes bundled with a distro-sable version of node, node,js and npm that can be installed directly from the default repositories.
 
 Simply run.
 
 ```bash
-sudo apt-get install node nodejs npm
+sudo apt-get install nodejs nodejs-legacy npm
 ```
 
 ### Groovy
 
-Groovy is an alternative language for the JVM with a concise Java-friendly syntax, dynamic and static features, powerful DSL capabilities. AberOWL requires a Groovy version above version 2. If your package manager includes an ancient version of Groovy, you can easily use the GVM tool to install a recent version: http://www.groovy-lang.org/install.html#_gvm_the_groovy_environment_manager
+Groovy is an alternative language for the JVM with a concise Java-friendly syntax, dynamic and static features, powerful DSL capabilities. AberOWL requires a Groovy version above version 2. If your package manager includes an ancient version of Groovy, you can easily use the sdkman tool to install a recent version: http://www.groovy-lang.org/install.html#_gvm_the_groovy_environment_manager
 
 ### Apache
 
@@ -89,13 +89,6 @@ Then, you need to add the module proxy to apache:
 ```bash
 sudo a2enmod proxy
 ```
-Finally, you have to install databank-redis:
-```bash
-cd aberowl-web
-npm install databank
-cd node_modules/databank/
-npm install databank-redis
-```
 
 Note that the order is important. Apache must be restarted after changes.
 
@@ -127,8 +120,10 @@ Apache configuration.
 Once you are in the ```aberowl-meta``` directory, To run the server simply run:
 
 ```bash
-cd aberowl-server ;  groovy AberOWLServer.groovy
+cd aberowl-server ;  groovy AberOWLServer.groovy [PORT]
 ```
+
+Where [PORT] is the port for the AberOWL service to listen on e.g. 9999.
 
 To run the web front-end:
 
