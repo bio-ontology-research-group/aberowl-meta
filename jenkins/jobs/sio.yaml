@@ -1,0 +1,21 @@
+- job:
+    name: SIO
+    folder: ontologies
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy CheckUpdate SIO'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy Classify SIO'
+        }
+        stage('Index') {
+          sh '/usr/local/bin/groovy Index SIO'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy Restart SIO'
+        }
+      }
+    sandbox: true
