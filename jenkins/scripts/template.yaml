@@ -1,0 +1,21 @@
+- job:
+    name: _ONT_
+    folder: ontologies
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy CheckUpdate _ONT_'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy Classify _ONT_'
+        }
+        stage('Index') {
+          sh '/usr/local/bin/groovy Index _ONT_'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy Restart _ONT_'
+        }
+      }
+    sandbox: true
