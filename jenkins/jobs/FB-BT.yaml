@@ -1,0 +1,25 @@
+- project:
+    name: AberOWL
+
+- job:
+    name: FB-BT
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/CheckUpdate FB-BT'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify FB-BT'
+        }
+        stage('Index') {
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index FB-BT'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart FB-BT'
+        }
+      }
+    sandbox: true
+    triggers:
+      - timed: '@daily'

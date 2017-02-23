@@ -1,0 +1,25 @@
+- project:
+    name: AberOWL
+
+- job:
+    name: FLOPO
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/CheckUpdate FLOPO'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify FLOPO'
+        }
+        stage('Index') {
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index FLOPO'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart FLOPO'
+        }
+      }
+    sandbox: true
+    triggers:
+      - timed: '@daily'

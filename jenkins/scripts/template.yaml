@@ -1,3 +1,6 @@
+- project:
+    name: AberOWL
+
 - job:
     name: _ONT_
     project-type: pipeline
@@ -11,7 +14,7 @@
           sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify _ONT_'
         }
         stage('Index') {
-          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index _ONT_'
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index _ONT_'
         }
         stage('Finalize') {
           sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart _ONT_'

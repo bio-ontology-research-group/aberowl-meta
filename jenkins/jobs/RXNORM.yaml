@@ -1,0 +1,25 @@
+- project:
+    name: AberOWL
+
+- job:
+    name: RXNORM
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/CheckUpdate RXNORM'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify RXNORM'
+        }
+        stage('Index') {
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index RXNORM'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart RXNORM'
+        }
+      }
+    sandbox: true
+    triggers:
+      - timed: '@daily'

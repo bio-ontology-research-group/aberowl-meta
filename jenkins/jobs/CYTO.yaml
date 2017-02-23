@@ -1,0 +1,25 @@
+- project:
+    name: AberOWL
+
+- job:
+    name: CYTO
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/CheckUpdate CYTO'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify CYTO'
+        }
+        stage('Index') {
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index CYTO'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart CYTO'
+        }
+      }
+    sandbox: true
+    triggers:
+      - timed: '@daily'

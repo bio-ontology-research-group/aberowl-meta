@@ -1,0 +1,25 @@
+- project:
+    name: AberOWL
+
+- job:
+    name: EDAM
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/CheckUpdate EDAM'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify EDAM'
+        }
+        stage('Index') {
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index EDAM'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart EDAM'
+        }
+      }
+    sandbox: true
+    triggers:
+      - timed: '@daily'

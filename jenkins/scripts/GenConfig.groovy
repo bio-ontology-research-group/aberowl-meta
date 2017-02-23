@@ -15,8 +15,10 @@ def d = db.getResource()
 def id = DB_PREFIX + ont
 def item = d.get(id)
 d.close()
+JsonSlurper slurper = new JsonSlurper()
+def rec = slurper.parseText(item)
 
 PrintWriter fout = new PrintWriter(new BufferedWriter(new FileWriter(new File(target + "/config.json"))))
-fout.println(JsonOutput.toJson(item))
+fout.println(JsonOutput.toJson(rec))
 fout.flush()
 fout.close()

@@ -1,0 +1,25 @@
+- project:
+    name: AberOWL
+
+- job:
+    name: ONTOPSYCHIA
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/CheckUpdate ONTOPSYCHIA'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify ONTOPSYCHIA'
+        }
+        stage('Index') {
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index ONTOPSYCHIA'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart ONTOPSYCHIA'
+        }
+      }
+    sandbox: true
+    triggers:
+      - timed: '@daily'

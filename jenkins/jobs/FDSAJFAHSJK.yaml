@@ -1,0 +1,25 @@
+- project:
+    name: AberOWL
+
+- job:
+    name: FDSAJFAHSJK
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/CheckUpdate FDSAJFAHSJK'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify FDSAJFAHSJK'
+        }
+        stage('Index') {
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index FDSAJFAHSJK'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart FDSAJFAHSJK'
+        }
+      }
+    sandbox: true
+    triggers:
+      - timed: '@daily'

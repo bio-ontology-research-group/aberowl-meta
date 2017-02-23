@@ -1,0 +1,25 @@
+- project:
+    name: AberOWL
+
+- job:
+    name: TM-SIGNS-AND-SYMPTS
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/CheckUpdate TM-SIGNS-AND-SYMPTS'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify TM-SIGNS-AND-SYMPTS'
+        }
+        stage('Index') {
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index TM-SIGNS-AND-SYMPTS'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart TM-SIGNS-AND-SYMPTS'
+        }
+      }
+    sandbox: true
+    triggers:
+      - timed: '@daily'

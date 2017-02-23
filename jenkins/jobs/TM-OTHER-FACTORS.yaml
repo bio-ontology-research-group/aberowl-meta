@@ -1,0 +1,25 @@
+- project:
+    name: AberOWL
+
+- job:
+    name: TM-OTHER-FACTORS
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/CheckUpdate TM-OTHER-FACTORS'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify TM-OTHER-FACTORS'
+        }
+        stage('Index') {
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index TM-OTHER-FACTORS'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart TM-OTHER-FACTORS'
+        }
+      }
+    sandbox: true
+    triggers:
+      - timed: '@daily'

@@ -56,6 +56,7 @@ import org.apache.lucene.index.IndexWriterConfig.OpenMode
 
 import java.nio.file.*
 
+
 void reloadOntologyIndex(String oid, IndexWriter index, def oRec) {
 
   OWLOntologyManager manager = OWLManager.createOWLOntologyManager()
@@ -268,7 +269,7 @@ void reloadOntologyIndex(String oid, IndexWriter index, def oRec) {
 	  f = new Field('definition', label, TextField.TYPE_STORED)
 	  doc.add(f)
 	  if (annotation != null) {
-	    dCount += 1
+	    //	    dCount += 1
 	  }
 	}
       }
@@ -357,7 +358,7 @@ void reloadOntologyIndex(String oid, IndexWriter index, def oRec) {
 
 	  doc.add(new Field('definition', label, TextField.TYPE_STORED))
 	  if (annotation != null) {
-	    dCount += 1
+	    //	    dCount += 1
 	  }
 	}
       }

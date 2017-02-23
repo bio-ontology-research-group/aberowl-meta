@@ -1,0 +1,25 @@
+- project:
+    name: AberOWL
+
+- job:
+    name: IMGT-ONTOLOGY
+    project-type: pipeline
+    concurrent: true
+    dsl: |
+      node {
+        stage('Build') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/CheckUpdate IMGT-ONTOLOGY'
+        }
+        stage('Reason') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify IMGT-ONTOLOGY'
+        }
+        stage('Index') {
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index IMGT-ONTOLOGY'
+        }
+        stage('Finalize') {
+          sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart IMGT-ONTOLOGY'
+        }
+      }
+    sandbox: true
+    triggers:
+      - timed: '@daily'

@@ -36,7 +36,7 @@ def oid = args[0]
 def bpath = REPODIR + oid + "/" // base [path
 def oRec = slurper.parse(new File(bpath + "config.json"))
 
-println "Processing ${oRec.id}..."
+//println "Processing ${oRec.id}..."
 def fileName = bpath + "new/"+oid+".owl"
 def tempFile = new File(bpath + "new/"+oid+"-raw.owl")
 
@@ -124,7 +124,7 @@ if (!uptodate) {
   // Get the checksum of the most recent release.
   def oldSum = 0
   try {
-    def currentFile = new FileInputStream(new File(bpath+"/ontologies/${oid}_"+oRec.submissions.size()+".ont"))
+    def currentFile = new FileInputStream(new File(bpath+"release/${oid}_"+oRec.submissions.size()+".ont"))
     if(currentFile) {
       oldSum = DigestUtils.md5Hex(currentFile)
     }
@@ -136,7 +136,7 @@ if (!uptodate) {
   def newSum = DigestUtils.md5Hex(new FileInputStream(tempFile))
   if(oldSum == newSum) {
     println "File is not new"
-    System.exit(-1)
+    uptodate = true
   }
 }
 if (!uptodate) {
