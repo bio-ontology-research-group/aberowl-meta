@@ -38,15 +38,21 @@ def oRec = slurper.parse(new File(bpath + "config.json"))
 
 if (!oRec.uptodate) {
   println "Classifying ontology..."
-  OWLOntologyManager manager = OWLManager.createOWLOntologyManager()
-  OWLOntology ont = manager.loadOntologyFromOntologyDocument(new File(REPODIR+oid+"/new/"+oid+"-raw.owl"))
-  OWLDataFactory fac = manager.getOWLDataFactory()
-  ConsoleProgressMonitor progressMonitor = new ConsoleProgressMonitor()
-  OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor)
-  ElkReasonerFactory f1 = new ElkReasonerFactory()
-  OWLReasoner reasoner = f1.createReasoner(ont,config)
-  def incon = reasoner.getEquivalentClasses(fac.getOWLNothing()).size() - 1
-  oRec.inconsistentClasses = incon
+  try {
+    OWLOntologyManager manager = OWLManager.createOWLOntologyManager()
+    OWLOntology ont = manager.loadOntologyFromOntologyDocument(new File(REPODIR+oid+"/new/"+oid+"-raw.owl"))
+    OWLDataFactory fac = manager.getOWLDataFactory()
+    ConsoleProgressMonitor progressMonitor = new ConsoleProgressMonitor()
+    OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor)
+    ElkReasonerFactory f1 = new ElkReasonerFactory()
+    OWLReasoner reasoner = f1.createReasoner(ont,config)
+    def incon = reasoner.getEquivalentClasses(fac.getOWLNothing()).size() - 1
+    oRec.inconsistentClasses = incon
+    oRec.unclassifiable = false
+  } catch (Exception E) {
+    E.printStackTrace()
+    oRec.unclassifiable = true
+  }
   
   PrintWriter fout = new PrintWriter(new BufferedWriter(new FileWriter(new File(bpath + "config.json"))))
   fout.println(JsonOutput.toJson(oRec))

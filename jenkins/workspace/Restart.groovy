@@ -33,9 +33,11 @@ if (!oRec.uptodate) {
   oRec.lastSubDate = newDate
   def count = oRec.submissions.size() + 1
   oRec.submissions[newDate.toString()] = oid+"_"+count+".ont"
-  
+
   Files.move(new File(REPODIR+oid+"/new/"+oid+"-raw.owl").toPath(),new File(REPODIR+oid+"/release/"+oid+"_"+count+".ont").toPath(),StandardCopyOption.REPLACE_EXISTING)
-  
+
+  ['ln', '-sf', new File(REPODIR+oid+"/release/"+oid+"_"+count+".ont").getAbsolutePath(), new File(REPODIR+oid+"/live/"+oid+".owl")].execute().waitFor()   
+
   PrintWriter fout = new PrintWriter(new BufferedWriter(new FileWriter(new File(bpath + "config.json"))))
   fout.println(JsonOutput.toJson(oRec))
   fout.flush()

@@ -130,8 +130,7 @@ if (!uptodate) {
     }
     currentFile.close()
   } catch (Exception E) {
-    E.printStackTrace()
-    System.exit(-1)
+    oldsum = 0
   }
   def newSum = DigestUtils.md5Hex(new FileInputStream(tempFile))
   if(oldSum == newSum) {
@@ -141,6 +140,7 @@ if (!uptodate) {
 }
 if (!uptodate) {
   oRec.releaseInProgress = released
+  oRec.uptodate = false
 } else {
   oRec.uptodate = true
 }

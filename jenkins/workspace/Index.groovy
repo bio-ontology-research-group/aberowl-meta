@@ -390,16 +390,19 @@ def oRec = slurper.parse(new File(bpath + "config.json"))
 if (!oRec.uptodate) {
   println "Reindexing..."
   // Index things
-  Directory index = new NIOFSDirectory(new File(luceneIndex).toPath())
+  Directory index = NIOFSDirectory.open(new File(luceneIndex).toPath())
   IndexSearcher searcher
   IndexWriterConfig iwc
   IndexWriter writer
   
   iwc = new IndexWriterConfig(new WhitespaceAnalyzer())
   iwc.setOpenMode(OpenMode.CREATE_OR_APPEND)
+  iwc.setCommitOnClose(true)
   writer = new IndexWriter(index, iwc)
   
   reloadOntologyIndex(oid, writer, oRec)
+  writer.commit()
+  writer.close()
 } else {
   println "Skipping indexing..."
 }
