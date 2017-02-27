@@ -4,7 +4,7 @@
 - job:
     name: ISO-15926-2
     project-type: pipeline
-    concurrent: true
+    concurrent: false
     dsl: |
       node {
         stage('Build') {
@@ -14,7 +14,7 @@
           sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify ISO-15926-2'
         }
         stage('Index') {
-          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index ISO-15926-2'
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/IndexElastic ISO-15926-2'
         }
         stage('Finalize') {
           sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart ISO-15926-2'

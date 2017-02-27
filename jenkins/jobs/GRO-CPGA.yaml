@@ -4,7 +4,7 @@
 - job:
     name: GRO-CPGA
     project-type: pipeline
-    concurrent: true
+    concurrent: false
     dsl: |
       node {
         stage('Build') {
@@ -14,7 +14,7 @@
           sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify GRO-CPGA'
         }
         stage('Index') {
-          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index GRO-CPGA'
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/IndexElastic GRO-CPGA'
         }
         stage('Finalize') {
           sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart GRO-CPGA'

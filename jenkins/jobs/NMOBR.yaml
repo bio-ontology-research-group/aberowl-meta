@@ -4,7 +4,7 @@
 - job:
     name: NMOBR
     project-type: pipeline
-    concurrent: true
+    concurrent: false
     dsl: |
       node {
         stage('Build') {
@@ -14,7 +14,7 @@
           sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify NMOBR'
         }
         stage('Index') {
-          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index NMOBR'
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/IndexElastic NMOBR'
         }
         stage('Finalize') {
           sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart NMOBR'

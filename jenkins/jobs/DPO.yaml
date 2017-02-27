@@ -4,7 +4,7 @@
 - job:
     name: DPO
     project-type: pipeline
-    concurrent: true
+    concurrent: false
     dsl: |
       node {
         stage('Build') {
@@ -14,7 +14,7 @@
           sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Classify DPO'
         }
         stage('Index') {
-          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Index DPO'
+          sh 'cd /home/hohndor/aberowl-meta/jenkins/workspace/ && /usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/IndexElastic DPO'
         }
         stage('Finalize') {
           sh '/usr/local/bin/groovy /home/hohndor/aberowl-meta/jenkins/workspace/Restart DPO'

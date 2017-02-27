@@ -2,6 +2,7 @@
 	  @Grab(group='org.semanticweb.elk', module='elk-owlapi', version='0.4.2'),
           @Grab(group='net.sourceforge.owlapi', module='owlapi-api', version='4.2.3'),
           @Grab(group='net.sourceforge.owlapi', module='owlapi-apibinding', version='4.2.3'),
+	  @Grab(group='redis.clients', module='jedis', version='2.6.2'),
           @Grab(group='net.sourceforge.owlapi', module='owlapi-impl', version='4.2.3'),
           @Grab(group='net.sourceforge.owlapi', module='owlapi-parsers', version='4.2.3'),
 	])
@@ -22,6 +23,7 @@ import org.semanticweb.owlapi.search.*;
 import org.semanticweb.owlapi.manchestersyntax.renderer.*;
 import org.semanticweb.owlapi.reasoner.structural.*
 import groovy.json.*
+import redis.clients.jedis.*
 
 
 ONTDIR = "/home/hohndor/aberowl-meta/aberowl-server/onts/"
@@ -34,7 +36,10 @@ def oid = args[0]
 def bpath = REPODIR + oid + "/" // base [path
 def slurper = new JsonSlurper()
 
-def oRec = slurper.parse(new File(bpath + "config.json"))
+DB_PREFIX = 'ontos:'
+def db = new JedisPool(new JedisPoolConfig(), "localhost").getResource()
+
+def oRec = slurper.parseText(db.get(DB_PREFIX + oid))
 
 if (!oRec.uptodate) {
   println "Classifying ontology..."
@@ -54,10 +59,15 @@ if (!oRec.uptodate) {
     oRec.unclassifiable = true
   }
   
+
+  db.set(DB_PREFIX + oid, JsonOutput.toJson(oRec))
+  db.close()
+  /*
   PrintWriter fout = new PrintWriter(new BufferedWriter(new FileWriter(new File(bpath + "config.json"))))
   fout.println(JsonOutput.toJson(oRec))
   fout.flush()
   fout.close()
+  */
 } else {
   println "Skipping classification..."
 }
