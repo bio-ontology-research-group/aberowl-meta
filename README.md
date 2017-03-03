@@ -131,7 +131,7 @@ To run the web front-end:
 cd aberowl-web ; bin/www
 ```
 
-[*obsolete*] To run the sync, follow these commands:
+[*obsolete* and replaced by Jenkins scripts] To run the sync, follow these commands:
 
 ```bash
 cd aberowl-sync ; groovy RemoteOntologyDiscover.groovy && groovy RemoteOntologyUpdate.groovy
