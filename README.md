@@ -131,7 +131,7 @@ To run the web front-end:
 cd aberowl-web ; bin/www
 ```
 
-To run the sync, follow these commands:
+[*obsolete*] To run the sync, follow these commands:
 
 ```bash
 cd aberowl-sync ; groovy RemoteOntologyDiscover.groovy && groovy RemoteOntologyUpdate.groovy
